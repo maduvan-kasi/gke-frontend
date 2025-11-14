@@ -11,12 +11,11 @@ steps:
             'us-east1-docker.pkg.dev/gcp-class-17/maduvan-gke-repo/bank-gke-frontend']
 
   - name: "gcr.io/cloud-builders/gke-deploy"
-    args:
-    - run
-    - --filename=deployment.yaml
-    - --image=us-east1-docker.pkg.dev/gcp-class-17/maduvan-gke-repo/bank-gke-frontend:latest
-    - --location=me-central1-b
-    - --cluster=maduvan-cluster-2
+    args: ['run',
+            '--filename=deployment.yaml',
+            '--image=us-east1-docker.pkg.dev/gcp-class-17/maduvan-gke-repo/bank-gke-frontend:latest',
+            '--location=me-central1-b',
+            '--cluster=maduvan-cluster-2']
 
 options:
   logging: CLOUD_LOGGING_ONLY
