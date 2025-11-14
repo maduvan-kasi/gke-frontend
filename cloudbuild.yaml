@@ -1,0 +1,22 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', 
+            '--build-arg', 'REACT_APP_API_URL=http://34.18.202.200:8080/api/v1',
+            '-t', 'us-east1-docker.pkg.dev/gcp-class-17/maduvan-gke-repo/bank-gke-frontend',
+            '-f', 'Dockerfile-before-https-first', 
+            '.']
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 
+            'us-east1-docker.pkg.dev/gcp-class-17/maduvan-gke-repo/bank-gke-frontend']
+
+  - name: "gcr.io/cloud-builders/gke-deploy"
+    args:
+    - run
+    - --filename=deployment.yaml
+    - --image=us-east1-docker.pkg.dev/gcp-class-17/maduvan-gke-repo/bank-gke-frontend:latest
+    - --location=me-central1-b
+    - --cluster=maduvan-cluster-2
+
+options:
+  logging: CLOUD_LOGGING_ONLY
